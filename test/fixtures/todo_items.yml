@@ -1,11 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  description: MyString
-  status: MyString
+potatoes:
+  description: potatoes
+  status: uncompleted
   todo_list_id: 1
 
-two:
-  description: MyString
-  status: MyString
+eggs:
+  description: medium eggs
+  status: uncompleted
   todo_list_id: 1
+
+car:
+  description: a ferrari
+  status: uncompleted
+  todo_list_id: 2
+  
+work:
+  description: find a gratifying job
+  status: completed
+  todo_list_id: 2
