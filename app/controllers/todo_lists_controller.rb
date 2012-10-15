@@ -21,17 +21,17 @@ class TodoListsController < ApplicationController
       format.html
       format.json {render json: @list}
     end
+    
+    rescue ActiveRecord::RecordNotFound
+      respond_to do |format|
+        format.json { head :not_found }
+      end
   end
 
   # GET /todo_lists/new
   # GET /todo_lists/new.json
   def new
     @list = TodoList.new
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @list }
-    end
   end
 
   # GET /todo_lists/1/edit
