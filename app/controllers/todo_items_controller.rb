@@ -34,21 +34,6 @@ class TodoItemsController < ApplicationController
       end
   end
 
-  # UNUSEFULL
-  # GET /todo_items/new
-  # GET /todo_items/new.json
-  # GET /todo_lists/1/todo_items/new.json
-  def new
-    @item = TodoItem.new
-  end
-
-  # UNUSEFULL
-  # GET /todo_items/1/edit
-  # GET /todo_lists/1/todo_items/1/edit.json
-  def edit
-    @item = TodoItem.find(params[:id])
-  end
-
   # POST /todo_items
   # POST /todo_items.json
   # POST /todo_lists/1/todo_items.json

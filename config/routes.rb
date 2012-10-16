@@ -1,10 +1,10 @@
 PracticeRails3Todomgr::Application.routes.draw do
 
-  resources :todo_lists do
-    resources :todo_items
+  resources :todo_lists, except: [:new, :edit] do
+    resources :todo_items, except: [:new, :edit]
   end
   
-  resources :todo_items
+  resources :todo_items, except: [:new, :edit]
 
 
 

@@ -17,11 +17,6 @@ class TodoItemsControllerTest < ActionController::TestCase
     get :show, id: @list.todo_items[0]
     assert_response :success
   end
-  
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
 
   test "should create item" do
     assert_difference('TodoItem.count') do
