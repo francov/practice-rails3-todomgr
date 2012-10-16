@@ -3,19 +3,19 @@
 potatoes:
   description: potatoes
   status: uncompleted
-  todo_list_id: 1
+  todo_list: shoppinglist
 
 eggs:
   description: medium eggs
   status: uncompleted
-  todo_list_id: 1
+  todo_list: shoppinglist
 
 car:
   description: a ferrari
   status: uncompleted
-  todo_list_id: 2
+  todo_list: wishlist
   
 work:
   description: find a gratifying job
   status: completed
-  todo_list_id: 2
+  todo_list: wishlist

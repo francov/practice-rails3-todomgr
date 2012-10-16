@@ -2,18 +2,24 @@ class TodoItemsController < ApplicationController
 
   # GET /todo_items
   # GET /todo_items.json
+  # GET /todo_lists/1/todo_items.json
   def index
-    @items = TodoItem.all
+    @items = TodoList.find(params[:todo_list_id]).todo_items
     
     respond_to do |format|
       format.html
       format.json {render json: @items}
     end
     
+    rescue ActiveRecord::RecordNotFound
+      respond_to do |format|
+        format.json { head :not_found }
+      end
   end
 
   # GET /todo_items/1
   # GET /todo_items/1.json
+  # GET /todo_lists/1/todo_items/1.json
   def show
     @item = TodoItem.find(params[:id])
     
@@ -21,27 +27,33 @@ class TodoItemsController < ApplicationController
       format.html
       format.json {render json: @item}
     end
+    
+    rescue ActiveRecord::RecordNotFound
+      respond_to do |format|
+        format.json { head :not_found }
+      end
   end
 
+  # UNUSEFULL
   # GET /todo_items/new
   # GET /todo_items/new.json
+  # GET /todo_lists/1/todo_items/new.json
   def new
     @item = TodoItem.new
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @item }
-    end
   end
 
+  # UNUSEFULL
   # GET /todo_items/1/edit
+  # GET /todo_lists/1/todo_items/1/edit.json
   def edit
     @item = TodoItem.find(params[:id])
   end
 
   # POST /todo_items
   # POST /todo_items.json
+  # POST /todo_lists/1/todo_items.json
   def create
+    
     @item = TodoItem.new(params[:todo_item])
 
     respond_to do |format|

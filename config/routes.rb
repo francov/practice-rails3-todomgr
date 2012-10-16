@@ -1,6 +1,9 @@
 PracticeRails3Todomgr::Application.routes.draw do
 
-  resources :todo_lists
+  resources :todo_lists do
+    resources :todo_items
+  end
+  
   resources :todo_items
 
 

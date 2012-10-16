@@ -28,12 +28,14 @@ class TodoListsController < ApplicationController
       end
   end
 
+  # UNUSEFULL
   # GET /todo_lists/new
   # GET /todo_lists/new.json
   def new
     @list = TodoList.new
   end
 
+  # UNUSEFULL
   # GET /todo_lists/1/edit
   def edit
     @list = TodoList.find(params[:id])
