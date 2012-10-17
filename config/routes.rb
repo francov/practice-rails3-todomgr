@@ -1,10 +1,8 @@
 PracticeRails3Todomgr::Application.routes.draw do
 
-  resources :todo_lists, except: [:new, :edit] do
+  resources :todo_lists, except: [:new, :edit], shallow: true do
     resources :todo_items, except: [:new, :edit]
   end
-  
-  resources :todo_items, except: [:new, :edit]
 
 
 

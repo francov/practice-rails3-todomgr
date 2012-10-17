@@ -75,7 +75,7 @@ class TodoItemsController < ApplicationController
     @item.destroy
 
     respond_to do |format|
-      format.html { redirect_to todo_items_url }
+      format.html { redirect_to todo_lists_url }
       format.json { head :no_content }
     end
   end
