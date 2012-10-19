@@ -4,17 +4,13 @@ class TodoItemsController < ApplicationController
   # GET /todo_items.json
   # GET /todo_lists/1/todo_items.json
   def index
-    @items = TodoList.find(params[:todo_list_id]).todo_items
+    @parent_list = TodoList.find(params[:todo_list_id])
+    @items = @parent_list.todo_items
     
     respond_to do |format|
       format.html
       format.json {render json: @items}
     end
-    
-    rescue ActiveRecord::RecordNotFound
-      respond_to do |format|
-        format.json { head :not_found }
-      end
   end
 
   # GET /todo_items/1
@@ -27,19 +23,16 @@ class TodoItemsController < ApplicationController
       format.html
       format.json {render json: @item}
     end
-    
-    rescue ActiveRecord::RecordNotFound
-      respond_to do |format|
-        format.json { head :not_found }
-      end
   end
 
   # POST /todo_items
   # POST /todo_items.json
   # POST /todo_lists/1/todo_items.json
   def create
+    @parent_list = TodoList.find(params[:todo_list_id])
     
     @item = TodoItem.new(params[:todo_item])
+    @item.todo_list_id = @parent_list.id
 
     respond_to do |format|
       if @item.save
