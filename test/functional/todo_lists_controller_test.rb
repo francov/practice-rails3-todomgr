@@ -28,7 +28,7 @@ class TodoListsControllerTest < ActionController::TestCase
     assert_equal composed_response.length, 3
     assert composed_response['success']
     assert !composed_response['data'].empty?
-    assert_equal "Shopping list for today", composed_response['data']['title']
+    assert_equal "Shopping list for today", composed_response['data'][0]['title']
   end
 
 
@@ -43,7 +43,7 @@ class TodoListsControllerTest < ActionController::TestCase
     assert_equal composed_response.length, 3
     assert composed_response['success']
     assert !composed_response['data'].empty?
-    assert_equal "My list", composed_response['data']['title']
+    assert_equal "My list", composed_response['data'][0]['title']
     assert_not_nil TodoList.find_by_title("My list")
   end
 
