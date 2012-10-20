@@ -9,7 +9,10 @@ class TodoItemsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.json {render json: @items}
+      format.json {render json: compose_response( 
+            data: @items,
+            message: "All Todo items"
+      )}
     end
   end
 
@@ -21,7 +24,10 @@ class TodoItemsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.json {render json: @item}
+      format.json {render json: compose_response( 
+            data: @item,
+            message: "TodoItem found."
+      )}
     end
   end
 
@@ -37,10 +43,16 @@ class TodoItemsController < ApplicationController
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'TodoItem was successfully created.' }
-        format.json { render json: @item, status: :created, location: @item }
+        format.json { render json: compose_response( 
+              data: @item,
+              message: "TodoItem was successfully created."
+        ), status: :created, location: @item }
       else
         format.html { render action: "new" }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        format.json { render json: compose_response(
+              success: false,
+              message: @item.errors
+        ), status: :unprocessable_entity }
       end
     end
   end
@@ -53,10 +65,15 @@ class TodoItemsController < ApplicationController
     respond_to do |format|
       if @item.update_attributes(params[:todo_item])
         format.html { redirect_to @item, notice: 'TodoItem was successfully updated.' }
-        format.json { head :no_content }
+        format.json {render json: compose_response(
+              message: "TodoItem was successfully updated."
+        )}
       else
         format.html { render action: "edit" }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        format.json { render json: compose_response(
+              success: false,
+              message: @item.errors
+        ), status: :unprocessable_entity }
       end
     end
   end
@@ -69,7 +86,9 @@ class TodoItemsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to todo_lists_url }
-      format.json { head :no_content }
+      format.json {render json: compose_response(
+            message: "TodoItem was successfully deleted."
+      )}
     end
   end
 end

@@ -4,10 +4,13 @@ class TodoListsController < ApplicationController
   # GET /todo_lists.json
   def index
     @lists = TodoList.all
-    
+
     respond_to do |format|
       format.html
-      format.json {render json: @lists}
+      format.json { render json: compose_response( 
+            data: @lists,
+            message: "All Todo lists"
+      )}
     end
     
   end
@@ -19,13 +22,11 @@ class TodoListsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.json {render json: @list}
+      format.json { render json: compose_response( 
+            data: @list,
+            message: "TodoList found."
+      )}
     end
-    
-    rescue ActiveRecord::RecordNotFound
-      respond_to do |format|
-        format.json { head :not_found }
-      end
   end
 
   # POST /todo_lists
@@ -36,10 +37,16 @@ class TodoListsController < ApplicationController
     respond_to do |format|
       if @list.save
         format.html { redirect_to @list, notice: 'TodoList was successfully created.' }
-        format.json { render json: @list, status: :created, location: @list }
+        format.json { render json: compose_response( 
+              data: @list,
+              message: "TodoList was successfully created."
+        ), status: :created, location: @list }
       else
         format.html { render action: "new" }
-        format.json { render json: @list.errors, status: :unprocessable_entity }
+        format.json { render json: compose_response(
+              success: false,
+              message: @list.errors
+        ), status: :unprocessable_entity }
       end
     end
   end
@@ -52,10 +59,15 @@ class TodoListsController < ApplicationController
     respond_to do |format|
       if @list.update_attributes(params[:todo_list])
         format.html { redirect_to @list, notice: 'TodoList was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render json: compose_response(
+              message: "TodoList was successfully updated."
+        )}
       else
         format.html { render action: "edit" }
-        format.json { render json: @list.errors, status: :unprocessable_entity }
+        format.json { render json: compose_response(
+              success: false,
+              message: @list.errors
+        ), status: :unprocessable_entity }
       end
     end
   end
@@ -68,7 +80,9 @@ class TodoListsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to todo_lists_url }
-      format.json { head :no_content }
+      format.json { render json: compose_response(
+            message: "TodoList was successfully deleted."
+      )}
     end
   end
 end

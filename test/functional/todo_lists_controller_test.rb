@@ -5,25 +5,30 @@ class TodoListsControllerTest < ActionController::TestCase
     @list = todo_lists(:shoppinglist)
   end
   
-  def json_response
-    ActiveSupport::JSON.decode @response.body
-  end
-  
   test "should get index" do
     get :index, format: 'json'
     assert_response :success
     assert_not_nil assigns(:lists)
     
-    assert_equal json_response.count, 2
-    assert_equal "Shopping list for today", json_response[0]['title']
+    composed_response = JSON.parse(@response.body)
+
+    assert_equal composed_response.length, 3
+    assert composed_response['success']
+    assert !composed_response['data'].empty?
+    assert_equal "Shopping list for today", composed_response['data'][0]['title']
   end
 
 
   test "should show list" do
-    get :show, format: 'json', id: @list
+    get :show, format: 'json', id: @list.id
     assert_response :success
-    
-    assert_equal "Shopping list for today", json_response['title']
+
+    composed_response = JSON.parse(@response.body)
+
+    assert_equal composed_response.length, 3
+    assert composed_response['success']
+    assert !composed_response['data'].empty?
+    assert_equal "Shopping list for today", composed_response['data']['title']
   end
 
 
@@ -31,27 +36,58 @@ class TodoListsControllerTest < ActionController::TestCase
     assert_difference('TodoList.count') do
         post :create, format: 'json', todo_list: {title: "My list"}
     end
-
     assert_response :created
-    assert_equal "My list", json_response['title']
+
+    composed_response = JSON.parse(@response.body)
+
+    assert_equal composed_response.length, 3
+    assert composed_response['success']
+    assert !composed_response['data'].empty?
+    assert_equal "My list", composed_response['data']['title']
     assert_not_nil TodoList.find_by_title("My list")
   end
 
 
   test "should update list" do
-    put :update, format: 'json', id: @list, todo_list: {title: "Shopping list for tomorrow"}
-    
+    put :update, format: 'json', id: @list.id, todo_list: {title: "Shopping list for tomorrow"}
     assert_response :success
+
+    composed_response = JSON.parse(@response.body)
+
+    assert_equal composed_response.length, 3
+    assert composed_response['success']
+    assert composed_response['data'].empty?
   end
   
 
   test "should destroy list" do
     assert_difference('TodoList.count', -1) do
-      delete :destroy, format: 'json', id: @list
+      delete :destroy, format: 'json', id: @list.id
     end
 
     assert_response :success
+
+    composed_response = JSON.parse(@response.body)
+
+    assert_equal composed_response.length, 3
+    assert composed_response['success']
+    assert composed_response['data'].empty?
+
     assert_nil TodoList.find_by_title("Shopping list for today")
+  end
+
+  test "should not get a non existent list" do
+    get :show, format: 'json', id: @list.id+1234
+
+    assert_response :success
+
+    composed_response = JSON.parse(@response.body)
+
+    assert_equal composed_response.length, 3
+    assert !composed_response['success']
+    assert composed_response['data'].empty?
+    assert_equal "Data not found", composed_response['message']
+
   end
 
 end
