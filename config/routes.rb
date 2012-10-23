@@ -1,10 +1,13 @@
 PracticeRails3Todomgr::Application.routes.draw do
 
+  get "dashboards/index"
+
   resources :todo_lists, except: [:new, :edit], shallow: true do
     resources :todo_items, except: [:new, :edit]
   end
 
-
+  match 'dashboard' => 'dashboards#index', :as => :dashboard
+  root :to => 'dashboards#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
