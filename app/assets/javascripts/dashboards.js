@@ -12,7 +12,8 @@ Ext.application({
     appFolder: 'app',
 
     controllers: [
-        'TodoLists'
+        'TodoLists',
+        'TodoItems'
     ],
 
     launch: function() {
@@ -31,11 +32,15 @@ Ext.application({
                 maxSize: 250
             },{
                 xtype: 'panel',
-                title: 'Todo Items',
-                collapsible: false,
                 region:'center',
-                margins: '5 0 0 0',
-                collapsible: false
+                collapsible: false,
+                items: [{
+                        xtype: 'todoitemfield',
+                        margins: '5 0 0 0'
+                    },{
+                        xtype: 'todoitemlist',
+                        margins: '5 0 0 0'
+                    }]
             }]
         });
     }

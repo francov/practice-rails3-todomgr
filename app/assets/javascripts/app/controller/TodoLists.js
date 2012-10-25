@@ -1,21 +1,33 @@
 Ext.define('TM.controller.TodoLists', {
     extend: 'Ext.app.Controller',
 
-	stores: ['TodoLists'],
-    models: ['TodoList'],
+	stores: [
+        'TodoLists',
+        'TodoItems'
+    ],
+    models: [
+        'TodoList',
+        'TodoItem'
+    ],
 
     views: [
         'todolist.List',
-        'todolist.Edit'
+        'todolist.Edit',
+        'todoitem.List',
+        'todoitem.ItemField'
     ],
 
     init: function() {
         this.control({
             'todolist': {
-                itemdblclick: this.editTodoList
+                itemdblclick: this.editTodoList,
+                itemclick: this.loadChildItems
             },
             'todolistedit button[action=save]': {
                 click: this.updateTodoList
+            },
+            'todoitemfield button[action=add]': {
+                click: this.addItem
             }
         });
     },
@@ -35,5 +47,31 @@ Ext.define('TM.controller.TodoLists', {
         record.set(values);
         win.close();
         this.getTodoListsStore().sync();
+    },
+
+    loadChildItems: function(grid, record) {
+        var itemsStore = this.getTodoItemsStore();
+        itemsStore.load({
+            url:'todo_lists/' + record.get('id') + '/todo_items'
+        });
+
+    },
+
+    addItem: function(button) {
+
+        var model = Ext.ComponentQuery.query('todolist')[0],
+            selectedModel = model.getSelectionModel().getSelection()[0];
+
+        var itemsStore = this.getTodoItemsStore();
+        itemsStore.getProxy().url = 'todo_lists/' + selectedModel.internalId + '/todo_items';
+
+        var form = button.up('panel').getForm(),
+            values = form.getValues();
+
+        if (form.isValid()) {
+            form.reset();
+            itemsStore.add(values);
+        }
+        itemsStore.sync();
     }
 });

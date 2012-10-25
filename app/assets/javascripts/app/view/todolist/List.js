@@ -6,6 +6,10 @@ Ext.define('TM.view.todolist.List' ,{
 
     store: 'TodoLists',
 
+    selModel: {
+        selType: 'rowmodel'
+    },
+
     initComponent: function() {
 
         this.columns = [
