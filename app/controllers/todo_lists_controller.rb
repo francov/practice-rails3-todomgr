@@ -50,7 +50,7 @@ class TodoListsController < ApplicationController
           success: false,
           data: [],
           message: @list.errors
-        }, status: :unprocessable_entity }
+        }}
       end
     end
   end
@@ -74,7 +74,7 @@ class TodoListsController < ApplicationController
           success: false,
           data: [],
           message: @list.errors
-        }, status: :unprocessable_entity }
+        }}
       end
     end
   end
