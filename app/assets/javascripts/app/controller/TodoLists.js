@@ -50,28 +50,50 @@ Ext.define('TM.controller.TodoLists', {
     },
 
     loadChildItems: function(grid, record) {
-        var itemsStore = this.getTodoItemsStore();
+        var itemsStore = this.getTodoItemsStore(),
+            old_url = itemsStore.getProxy().url;
         itemsStore.load({
             url:'todo_lists/' + record.get('id') + '/todo_items'
         });
-
+        itemsStore.getProxy().url = old_url;
     },
 
     addItem: function(button) {
 
         var model = Ext.ComponentQuery.query('todolist')[0],
-            selectedModel = model.getSelectionModel().getSelection()[0];
+            selectedModel = model.getSelectionModel().getSelection()[0],
+            itemsStore = this.getTodoItemsStore(),
+            old_url = itemsStore.getProxy().url;
 
-        var itemsStore = this.getTodoItemsStore();
-        itemsStore.getProxy().url = 'todo_lists/' + selectedModel.internalId + '/todo_items';
+        itemsStore.getProxy().url = 'todo_lists/' + selectedModel.getId() + '/todo_items';
 
         var form = button.up('panel').getForm(),
             values = form.getValues();
 
-        if (form.isValid()) {
-            form.reset();
-            itemsStore.add(values);
-        }
-        itemsStore.sync();
+
+        var record = Ext.create('TM.model.TodoItem', form.getValues());
+        form.clearInvalid();
+
+        record.getProxy().url = 'todo_lists/' + selectedModel.getId() + '/todo_items';
+        // record.save();
+        record.save({
+            success: function (record, op) {
+                itemsStore.load();
+                form.reset();
+                Ext.Msg.show({
+                    title : 'Success',
+                    msg : op.request.scope.reader.jsonData["message"],
+                    modal : true,
+                    buttons : Ext.Msg.OK
+                });
+            },
+            failure: function(record,op) {
+                form.markInvalid(op.getError());
+            },
+            callback: function () {
+                record.getProxy().url = old_url;
+                itemsStore.getProxy().url = old_url;
+            }
+        });
     }
 });

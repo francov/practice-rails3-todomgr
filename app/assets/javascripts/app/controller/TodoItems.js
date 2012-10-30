@@ -23,8 +23,6 @@ Ext.define('TM.controller.TodoItems', {
     },
 
     editTodoItem: function(editor, e) {
-        console.log('In edit');
-        
         this.getTodoItemsStore().sync();
     }
 

@@ -7,12 +7,10 @@ Ext.define('TM.view.todoitem.List' ,{
 
     store: 'TodoItems',
 
-    plugins: [
-        {
-            ptype: 'cellediting',
-            clicksToEdit: 2
-        }
-    ],
+    plugins: [{
+        ptype: 'cellediting',
+        clicksToEdit: 2
+    }],
 
     initComponent: function() {
 
@@ -22,18 +20,22 @@ Ext.define('TM.view.todoitem.List' ,{
                 dataIndex: 'status',
                 flex: 1,
                 editor: {
-                    xtype: 'checkbox',
+                    xtype: 'combobox',
+                    valueField: 'status',
+                    store: ['completed', 'uncompleted']
                 }
             },{
                 header: 'Description',
                 dataIndex: 'description',
-                flex: 5,
+                flex: 10,
                 editor: {
                     xtype: 'textfield',
                     allowBlank: false
                 }
             },{
+                header: 'Actions',
                 xtype:'actioncolumn',
+                align: 'center',
                 width:50,
                 items: [{
                     icon: 'assets/delete.png',

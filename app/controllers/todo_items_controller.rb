@@ -56,7 +56,7 @@ class TodoItemsController < ApplicationController
           success: false,
           data: [],
           message: @item.errors
-        }, status: :unprocessable_entity }
+        }}
       end
     end
   end
@@ -80,7 +80,7 @@ class TodoItemsController < ApplicationController
           success: false,
           data: [],
           message: @item.errors
-        }, status: :unprocessable_entity }
+        }}
       end
     end
   end

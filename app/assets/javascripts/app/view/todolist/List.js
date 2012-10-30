@@ -3,6 +3,7 @@ Ext.define('TM.view.todolist.List' ,{
     alias: 'widget.todolist',
 
     title: 'All lists',
+    hideHeaders: true,
 
     store: 'TodoLists',
 
