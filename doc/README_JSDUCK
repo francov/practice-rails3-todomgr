@@ -11,6 +11,7 @@ $> jsduck app/assets/javascripts \
 		--builtin-classes \
 		--warnings=-no_doc,-dup_member,-link_ambiguous \
 		--ignore-global \
+		--title="practice-rails3-todomgr" \
 		--output doc/javascript-app
 
 OR including extjs src too:
@@ -18,6 +19,7 @@ $> jsduck vendor/assets/javascripts/extjs4/src app/assets/javascripts \
 		--builtin-classes \
 		--warnings=-no_doc,-dup_member,-link_ambiguous \
 		--ignore-global \
+		--title="practice-rails3-todomgr" \
 		--output doc/javascript-app
 
 
