@@ -1,3 +1,7 @@
+/**
+ * TodoItem list view. This is a grid panel ({@link Ext.grid.Panel}) responsible for 
+ * the rendering of todo items for the current todo list.
+ */
 Ext.define('TM.view.todoitem.List' ,{
     extend: 'Ext.grid.Panel',
     alias: 'widget.todoitemlist',
@@ -7,6 +11,11 @@ Ext.define('TM.view.todoitem.List' ,{
 
     store: 'TodoItems',
 
+    /**
+     * @property plugins The plugins to use in this view
+     * @property plugins.ptype The plugin type
+     * @property plugins.clicksToEdit The number of click to activate the editing
+     */
     plugins: [{
         ptype: 'cellediting',
         clicksToEdit: 2
@@ -40,6 +49,12 @@ Ext.define('TM.view.todoitem.List' ,{
                 items: [{
                     icon: 'assets/delete.png',
                     tooltip: 'Delete',
+                    /**
+                     * Handle the delete action on a row.
+                     * @param {Ext.grid.Panel} grid
+                     * @param  {Number} rowIndex The row index
+                     * @param  {Number} colIndex The column index
+                     */
                     handler: function(grid, rowIndex, colIndex) {
                         var rec = grid.store.getAt(rowIndex);
                         grid.store.remove(rec);

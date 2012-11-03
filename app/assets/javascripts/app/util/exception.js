@@ -1,7 +1,15 @@
+/**
+ * This class is a central point for managing exceptions thrown primarily
+ * by the {@link Ext.data.proxy.Server} class.
+ */
 Ext.define('TM.util.Exception', {
 
     statics: {
         SYSTEM_GENERIC_ERROR: 'Unknown Error occourred!',
+        /**
+         * Handle a generic error message
+         * @param {String} message The message to be shown.
+         */
         GenericErrorMessage: function(message) {
 
             if(Ext.isEmpty(message)) {
@@ -17,6 +25,12 @@ Ext.define('TM.util.Exception', {
             });
 
         },
+
+        /**
+         * Handler for exceptions thrown due to a connection failure.
+         * @param {Object} response The raw XMLHttpRequest object
+         * @param {Object} options The options object passed to {@link Ext.util.Observable.addListener}.
+         */
         DataConnectionFailureHandler: function(response, options) {
             if(Ext.isEmpty(response.status)) {
                 response = options.response;
@@ -34,6 +48,13 @@ Ext.define('TM.util.Exception', {
             TM.util.Exception.GenericErrorMessage(displayMessage);
         },
 
+        /**
+         * Handler for exceptions thrown by {@link Ext.data.proxy.Server}
+         * @param {Ext.data.proxy.Proxy} proxy The proxy being used
+         * @param {Object} response The raw XMLHttpRequest object
+         * @param {Ext.data.Operation} operation The operation performed.
+         * @param {Object} eOpts The options object passed to {@link Ext.util.Observable.addListener}.
+         */
         StoreExceptionHandler: function(proxy, response, operation, eOpts) {
             
             if(response.status !== 200) {
@@ -41,7 +62,6 @@ Ext.define('TM.util.Exception', {
                 TM.util.Exception.DataConnectionFailureHandler(response, null);
             } else {
 
-                // var displayMessage = response.raw.msg;
                 var displayMessage = "";
                 var err = (typeof(operation.getError()) !== "undefined") ? operation.getError() :
                         operation.request.scope.reader.jsonData["message"];
@@ -54,7 +74,7 @@ Ext.define('TM.util.Exception', {
                     }
                 } else {
                     // Errore non riferito ad alcun field
-                    displayMessage = operation.getError();
+                    displayMessage = err;
                 }
                 TM.util.Exception.GenericErrorMessage(displayMessage);
             }

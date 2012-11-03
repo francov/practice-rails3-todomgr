@@ -6,8 +6,11 @@
  *= require_tree ./app/controller
  *= require_self
  */
+/**
+ * TodoManager Application entry point. Here we create a {@link Ext.container.Viewport}
+ * containing the main components of the application.
+ */
 Ext.application({
-    requires: ['Ext.container.Viewport'],
     name: 'TM',
     appFolder: 'app',
 
@@ -18,7 +21,10 @@ Ext.application({
 
     launch: function() {
 
-        // Observe exception on every data proxy
+        // Observe event exception on every data proxy
+        // Sulla doc è dichiarato che usa il mixin Observable, ma in questo caso
+        // l'oggetto Server non aveva il metodo on().
+        // http://docs.sencha.com/ext-js/4-1/#!/api/Ext.data.proxy.Server
         Ext.util.Observable.observe(Ext.data.proxy.Server);
         Ext.data.proxy.Server.on('exception', TM.util.Exception.StoreExceptionHandler);
 

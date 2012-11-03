@@ -1,3 +1,9 @@
+/**
+ * TodoItem field. This is an {@link Ext.panel.Panel} containing a {@link Ext.form.Panel form}
+ * for the submission of a new item for to current list.
+ * This form contains a description and an add button, which is managed by the
+ * {@link TM.controller.TodoLists} controller.
+ */
 Ext.define('TM.view.todoitem.ItemField' ,{
     extend: 'Ext.panel.Panel',
     alias: 'widget.todoitemfield',

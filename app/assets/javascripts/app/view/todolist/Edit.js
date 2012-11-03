@@ -1,3 +1,6 @@
+/**
+ * The Edit view for a {@link TM.model.TodoList} item.
+ */
 Ext.define('TM.view.todolist.Edit' ,{
     extend: 'Ext.window.Window',
     alias: 'widget.todolistedit',
@@ -7,6 +10,12 @@ Ext.define('TM.view.todolist.Edit' ,{
     autoShow: true,
 
     initComponent: function() {
+        /**
+         * An item of type {@link Ext.form.Panel} containing:
+         * 
+         * - **id**: _hiddenfield_
+         * - **title**: _textfield_
+         */
         this.items = [
             {
                 xtype: 'form',
@@ -23,6 +32,9 @@ Ext.define('TM.view.todolist.Edit' ,{
             }
         ];
 
+        /**
+         * Two buttons ({@link Ext.button.Button}): _Save_ and _Cancel_.
+         */
         this.buttons = [
             {
                 text: 'Save',
