@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='TM-view-todoitem-ItemField'>/**
+</span> * TodoItem field. This is an {@link Ext.panel.Panel} containing a {@link Ext.form.Panel form}
+ * for the submission of a new item for to current list.
+ * This form contains a description and an add button, which is managed by the
+ * {@link TM.controller.TodoLists} controller.
+ */
+Ext.define('TM.view.todoitem.ItemField' ,{
+    extend: 'Ext.panel.Panel',
+    alias: 'widget.todoitemfield',
+
+<span id='TM-view-todoitem-ItemField-property-bodyPadding'>    bodyPadding: 5,
+</span><span id='TM-view-todoitem-ItemField-property-title'>    title: 'Add a todo.',
+</span><span id='TM-view-todoitem-ItemField-property-layout'>    layout: {
+</span>        type: 'vbox'
+    },
+
+<span id='TM-view-todoitem-ItemField-method-initComponent'>    initComponent: function() {
+</span>        this.items = [
+            {
+                xtype: 'form',
+                border: false,
+                items: [
+                    {
+                        xtype: 'hiddenfield',
+                        name : 'id'
+                    },{
+                        xtype: 'textfield',
+                        name : 'description',
+                        emptyText: 'What do you have to do here?',
+                        width: 450,
+                        height: 35
+                    },{
+                        xtype: 'hiddenfield',
+                        name : 'status',
+                        value: 'uncompleted'
+                    }
+                ],
+                buttons: [
+                    {
+                        text: 'Add',
+                        action: 'add'
+                    }
+                ]
+            }
+        ];
+        this.callParent(arguments);
+    }
+});
+</pre>
+</body>
+</html>

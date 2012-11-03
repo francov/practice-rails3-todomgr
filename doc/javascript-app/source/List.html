@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='TM-view-todoitem-List'>/**
+</span> * TodoItem list view. This is a grid panel ({@link Ext.grid.Panel}) responsible for 
+ * the rendering of todo items for the current todo list.
+ */
+Ext.define('TM.view.todoitem.List' ,{
+    extend: 'Ext.grid.Panel',
+    alias: 'widget.todoitemlist',
+
+<span id='TM-view-todoitem-List-property-title'>    title: 'Todos',
+</span><span id='TM-view-todoitem-List-property-emptyText'>    emptyText: 'No items here.',
+</span>
+<span id='TM-view-todoitem-List-property-store'>    store: 'TodoItems',
+</span>
+<span id='TM-view-todoitem-List-property-plugins'>    /**
+</span>     * @property plugins The plugins to use in this view
+     * @property plugins.ptype The plugin type
+     * @property plugins.clicksToEdit The number of click to activate the editing
+     */
+    plugins: [{
+        ptype: 'cellediting',
+        clicksToEdit: 2
+    }],
+
+<span id='TM-view-todoitem-List-method-initComponent'>    initComponent: function() {
+</span>
+        this.columns = [
+            {
+                header: 'Status',
+                dataIndex: 'status',
+                flex: 1,
+                editor: {
+                    xtype: 'combobox',
+                    valueField: 'status',
+                    store: ['completed', 'uncompleted']
+                }
+            },{
+                header: 'Description',
+                dataIndex: 'description',
+                flex: 10,
+                editor: {
+                    xtype: 'textfield',
+                    allowBlank: false
+                }
+            },{
+                header: 'Actions',
+                xtype:'actioncolumn',
+                align: 'center',
+                width:50,
+                items: [{
+                    icon: 'assets/delete.png',
+                    tooltip: 'Delete',
+<span id='TM-view-todoitem-List-method-handler'>                    /**
+</span>                     * Handle the delete action on a row.
+                     * @param {Ext.grid.Panel} grid
+                     * @param  {Number} rowIndex The row index
+                     * @param  {Number} colIndex The column index
+                     */
+                    handler: function(grid, rowIndex, colIndex) {
+                        var rec = grid.store.getAt(rowIndex);
+                        grid.store.remove(rec);
+                        grid.store.sync();
+                    }
+                }]
+            }
+        ];
+
+        this.callParent(arguments);
+    }
+});</pre>
+</body>
+</html>

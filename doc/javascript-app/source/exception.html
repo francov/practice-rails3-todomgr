@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='TM-util-Exception'>/**
+</span> * This class is a central point for managing exceptions thrown primarily
+ * by the {@link Ext.data.proxy.Server} class.
+ */
+Ext.define('TM.util.Exception', {
+
+    statics: {
+<span id='TM-util-Exception-property-SYSTEM_GENERIC_ERROR'>        SYSTEM_GENERIC_ERROR: 'Unknown Error occourred!',
+</span><span id='TM-util-Exception-method-GenericErrorMessage'>        /**
+</span>         * Handle a generic error message
+         * @param {String} message The message to be shown.
+         */
+        GenericErrorMessage: function(message) {
+
+            if(Ext.isEmpty(message)) {
+                message = TM.util.Exception.SYSTEM_GENERIC_ERROR;
+            }
+
+            Ext.Msg.show({
+                title : 'An Error has occurred',
+                msg : message,
+                modal : true,
+                icon : Ext.Msg.ERROR,
+                buttons : Ext.Msg.OK
+            });
+
+        },
+
+<span id='TM-util-Exception-method-DataConnectionFailureHandler'>        /**
+</span>         * Handler for exceptions thrown due to a connection failure.
+         * @param {Object} response The raw XMLHttpRequest object
+         * @param {Object} options The options object passed to {@link Ext.util.Observable.addListener}.
+         */
+        DataConnectionFailureHandler: function(response, options) {
+            if(Ext.isEmpty(response.status)) {
+                response = options.response;
+            }
+
+            if(((typeof(message) === &quot;undefined&quot;) || message === '') &amp;&amp; response.status === 200) {
+                if(!Ext.isEmpty(response.responseText)) {
+                    jsonResponse = Ext.util.JSON.decode(response.responseText);
+                }
+                displayMessage = jsonResponse.msg;
+            } else if(response.status !== 200 &amp;&amp; response.status !== undefined &amp;&amp; response.status !== null) {
+                displayMessage = response.statusText;
+            }
+
+            TM.util.Exception.GenericErrorMessage(displayMessage);
+        },
+
+<span id='TM-util-Exception-method-StoreExceptionHandler'>        /**
+</span>         * Handler for exceptions thrown by {@link Ext.data.proxy.Server}
+         * @param {Ext.data.proxy.Proxy} proxy The proxy being used
+         * @param {Object} response The raw XMLHttpRequest object
+         * @param {Ext.data.Operation} operation The operation performed.
+         * @param {Object} eOpts The options object passed to {@link Ext.util.Observable.addListener}.
+         */
+        StoreExceptionHandler: function(proxy, response, operation, eOpts) {
+            
+            if(response.status !== 200) {
+                // call the AJAX Error Handler
+                TM.util.Exception.DataConnectionFailureHandler(response, null);
+            } else {
+
+                var displayMessage = &quot;&quot;;
+                var err = (typeof(operation.getError()) !== &quot;undefined&quot;) ? operation.getError() :
+                        operation.request.scope.reader.jsonData[&quot;message&quot;];
+
+                if (typeof(err) === &quot;object&quot;) {
+                    for (var key in err) {
+                        if (err.hasOwnProperty(key)) {
+                            displayMessage += &quot;&lt;b&gt;&quot; + key + &quot;:&lt;/b&gt; &quot; + err[key] + &quot;&lt;br/&gt;&quot;;
+                        }
+                    }
+                } else {
+                    // Errore non riferito ad alcun field
+                    displayMessage = err;
+                }
+                TM.util.Exception.GenericErrorMessage(displayMessage);
+            }
+
+        }
+    }
+});</pre>
+</body>
+</html>

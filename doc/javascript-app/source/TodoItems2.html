@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='TM-controller-TodoItems'>/**
+</span> * TodoItems Controller. This controller is responsible for managing events and logic 
+ * for the following views:
+ * 
+ * - {@link TM.view.todoitem.List}
+ * - {@link TM.view.todoitem.ItemField}
+ *
+ */
+Ext.define('TM.controller.TodoItems', {
+    extend: 'Ext.app.Controller',
+
+<span id='TM-controller-TodoItems-property-stores'>	stores: [
+</span>        'TodoItems'
+    ],
+<span id='TM-controller-TodoItems-property-models'>    models: [
+</span>        'TodoList',
+        'TodoItem'
+    ],
+
+<span id='TM-controller-TodoItems-property-views'>    views: [
+</span>        'todoitem.List',
+        'todoitem.ItemField'
+    ],
+
+<span id='TM-controller-TodoItems-method-init'>    init: function() {
+</span><span id='TM-controller-TodoItems-method-control'>        /**
+</span>         * @method control
+         * Adds listeners to the following components:
+         * 
+         * - **'todoitemlist'** -&gt; {@link #editTodoItem edit}
+         */
+        this.control({
+            'todoitemlist': {
+                edit: this.editTodoItem
+            }
+        });
+    },
+
+<span id='TM-controller-TodoItems-method-editTodoItem'>    /**
+</span>     * Edit event handler for the {@link TM.view.todoitem.List}'s row editors.
+     * It simply _sync_ the {@link TM.store.TodoItems} store to save just edited row.
+     * 
+     * @param {Ext.Editor} editor
+     * @param {Event} e
+     */
+    editTodoItem: function(editor, e) {
+        this.getTodoItemsStore().sync();
+    }
+
+});</pre>
+</body>
+</html>

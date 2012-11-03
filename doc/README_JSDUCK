@@ -1,0 +1,24 @@
+JSDuck
+---------------
+API documentation generator for Sencha JavaScript frameworks.
+See: https://github.com/senchalabs/jsduck
+
+
+Usage
+---------------
+For javascript app only:
+$> jsduck app/assets/javascripts \
+		--builtin-classes \
+		--warnings=-no_doc,-dup_member,-link_ambiguous \
+		--ignore-global \
+		--output doc/javascript-app
+
+OR including extjs src too:
+$> jsduck vendor/assets/javascripts/extjs4/src app/assets/javascripts \
+		--builtin-classes \
+		--warnings=-no_doc,-dup_member,-link_ambiguous \
+		--ignore-global \
+		--output doc/javascript-app
+
+
+The output will be located in the doc/javascript-app folder.
