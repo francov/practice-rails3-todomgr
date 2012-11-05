@@ -23,6 +23,13 @@ end
 
 gem 'jquery-rails'
 
+gem 'jsduck'
+
+group :development, :test do
+  gem 'jasminerice'
+  gem 'guard-jasmine'
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
