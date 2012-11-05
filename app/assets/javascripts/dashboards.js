@@ -6,7 +6,10 @@
  *= require_tree ./app/controller
  *= require_self
  */
+
+
 /**
+ * @class TM.Dashboard
  * TodoManager Application entry point. Here we create a {@link Ext.container.Viewport}
  * containing the main components of the application.
  */
