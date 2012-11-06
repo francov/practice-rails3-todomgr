@@ -1,0 +1,45 @@
+README_JASMINE
+------------------
+BDD framework for testing JavaScript code.
+See http://pivotal.github.com/jasmine/
+
+
+Installation
+------------------
+In the Gemfile:
+
+	group :development, :test do
+  		gem "jasminerice"
+  		gem "guard-jasmine"
+	end
+
+1) 	The first "jasminerice" was used for compliance with the Rails3 asset pipeline.
+2) 	The second "guard-jasmine" is for headless testing, from command line. To get Guard up and running you need
+	PhantomJS installed on your system.
+
+
+Usage
+------------------
+This guide was followed:
+	http://blog.blazingcloud.net/2012/03/03/getting-started-with-jasmine-and-rails-3-2/
+
+1)	$> bundle exec guard init jasmine
+	In this way when rails server start you can see specs at http://localhost:3000/jasmine
+
+2)	$> bundle exec guard
+
+NOTE: All spec files must end with _spec.js
+
+
+Tips
+------------------
+We encountered some problems with async requests, expecially with store load(). A work around was to use a boolean 
+variable becoming true on the "load" event fired by an Ext store, eg.:
+In the beforeEach:
+	load_done = false;
+	runs(function(){
+		list_store.addListener("load", function() {
+	       load_done = true;
+		}, this);
+	});
+	waitsFor(function() { return load_done; }, "load event never fired", 4000);
