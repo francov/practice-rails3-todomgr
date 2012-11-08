@@ -1,2 +1,30 @@
 <%= content_for(:head) { javascript_include_tag "dashboards" } %>
-<div id="ext-viewport" style="width: 800px;margin: 0 auto;"></div>
+
+<script type="text/javascript">
+Ext.onReady(function() {
+    function log2server(message) {
+        Ext.Ajax.request({
+            url: '/log_client_error',
+            method: 'POST',
+            params: { error_message: message }
+        });
+    }
+
+    function log2test(message) {
+        if (window.CLIENT_SIDE_ERRORS_DEBUG) {
+            if (typeof window.CLIENT_SIDE_ERRORS != "string")
+                window.CLIENT_SIDE_ERRORS = ""
+            window.CLIENT_SIDE_ERRORS += message+"\n";
+        }
+    }
+
+    window.onerror = function(message, file, line) {
+        var sFormattedMessage = '[' + file + ' (' + line + ')] ' + message;
+        if (console)
+            console.log("CATCHED CLIENT ERROR: "+sFormattedMessage);
+
+        log2test(sFormattedMessage);
+        log2server(sFormattedMessage);
+    }
+});
+</script>

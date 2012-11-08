@@ -1,0 +1,122 @@
+[0.000][INFO]:      ChromeDriver 21.0.1180.4 /usr/local/bin/chromedriver
+[0.252][FINE]:      Initializing session with capabilities {
+   "browserName": "chrome",
+   "chrome.detach": true,
+   "chromeOptions": {
+      "detach": true
+   },
+   "cssSelectorsEnabled": true,
+   "javascriptEnabled": true,
+   "nativeEvents": false,
+   "platform": "ANY",
+   "rotatable": false,
+   "takesScreenshot": false,
+   "version": ""
+}
+
+[0.253][INFO]:      Using named testing interface
+[0.791][INFO]:      Connected to Chrome successfully. Version: 22.0.1229.94
+[0.796][FINE]:      Command received (/session/4352ac1e5c5cd97c7272b96c49d62487)
+[0.796][FINE]:      Command finished (/session/4352ac1e5c5cd97c7272b96c49d62487) with response {
+   "sessionId": "4352ac1e5c5cd97c7272b96c49d62487",
+   "status": 0,
+   "value": {
+      "acceptSslCerts": false,
+      "applicationCacheEnabled": false,
+      "browserConnectionEnabled": false,
+      "browserName": "chrome",
+      "chrome.chromedriverVersion": "21.0.1180.4",
+      "chrome.nativeEvents": false,
+      "cssSelectorsEnabled": true,
+      "databaseEnabled": false,
+      "handlesAlerts": true,
+      "javascriptEnabled": true,
+      "locationContextEnabled": false,
+      "nativeEvents": true,
+      "platform": "linux",
+      "rotatable": false,
+      "takesScreenshot": true,
+      "version": "22.0.1229.94",
+      "webStorageEnabled": true
+   }
+}
+
+[0.797][FINE]:      Command received (/session/4352ac1e5c5cd97c7272b96c49d62487/url) with params {
+   "url": "http://127.0.0.1:50177/"
+}
+
+[0.797][FINER]:     Waiting for all views to stop loading...
+[0.798][FINER]:     Done waiting for all views to stop loading
+[2.992][FINER]:     Waiting for all views to stop loading...
+[2.995][FINER]:     Done waiting for all views to stop loading
+[2.995][FINE]:      Command finished (/session/4352ac1e5c5cd97c7272b96c49d62487/url) with response {
+   "sessionId": "4352ac1e5c5cd97c7272b96c49d62487",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[5.059][FINE]:      Command received (/session/4352ac1e5c5cd97c7272b96c49d62487/elements) with params {
+   "using": "xpath",
+   "value": "./descendant-or-self::*[contains(normalize-space(.), 'All lists')]"
+}
+
+[5.059][FINER]:     Waiting for all views to stop loading...
+[5.060][FINER]:     Done waiting for all views to stop loading
+[5.085][FINER]:     Waiting for all views to stop loading...
+[5.086][FINER]:     Done waiting for all views to stop loading
+[5.087][FINE]:      Command finished (/session/4352ac1e5c5cd97c7272b96c49d62487/elements) with response {
+   "sessionId": "4352ac1e5c5cd97c7272b96c49d62487",
+   "status": 0,
+   "value": [ {
+      "ELEMENT": ":wdc:1352336560288"
+   }, {
+      "ELEMENT": ":wdc:1352336560289"
+   }, {
+      "ELEMENT": ":wdc:1352336560290"
+   }, {
+      "ELEMENT": ":wdc:1352336560291"
+   }, {
+      "ELEMENT": ":wdc:1352336560292"
+   }, {
+      "ELEMENT": ":wdc:1352336560293"
+   }, {
+      "ELEMENT": ":wdc:1352336560294"
+   }, {
+      "ELEMENT": ":wdc:1352336560295"
+   }, {
+      "ELEMENT": ":wdc:1352336560296"
+   } ]
+}
+
+[5.138][FINE]:      Command received (/session/4352ac1e5c5cd97c7272b96c49d62487/cookie)
+[5.138][FINER]:     Waiting for all views to stop loading...
+[5.138][FINER]:     Done waiting for all views to stop loading
+[5.141][FINER]:     Waiting for all views to stop loading...
+[5.141][FINER]:     Done waiting for all views to stop loading
+[5.141][FINE]:      Command finished (/session/4352ac1e5c5cd97c7272b96c49d62487/cookie) with response {
+   "sessionId": "4352ac1e5c5cd97c7272b96c49d62487",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[5.142][FINE]:      Command received (/session/4352ac1e5c5cd97c7272b96c49d62487/url) with params {
+   "url": "about:blank"
+}
+
+[5.143][FINER]:     Waiting for all views to stop loading...
+[5.143][FINER]:     Done waiting for all views to stop loading
+[5.192][FINER]:     Waiting for all views to stop loading...
+[5.193][FINER]:     Done waiting for all views to stop loading
+[5.193][FINE]:      Command finished (/session/4352ac1e5c5cd97c7272b96c49d62487/url) with response {
+   "sessionId": "4352ac1e5c5cd97c7272b96c49d62487",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[5.353][FINE]:      Command received (/session/4352ac1e5c5cd97c7272b96c49d62487)
