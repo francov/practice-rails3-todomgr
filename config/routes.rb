@@ -9,6 +9,12 @@ PracticeRails3Todomgr::Application.routes.draw do
   match 'dashboard' => 'dashboards#index', :as => :dashboard
   root :to => 'dashboards#index'
 
+  # This redirect is a work around for the use of Extjs4 with Rails assets pipeline:
+  # for "test" and "production" mode images are retrived this way
+  match "/resources/themes/*all" => redirect {|env, req|
+    URI.unescape "/assets/extjs4/resources/themes/#{req.params[:all]}" 
+  }, :all => /.*/ unless Rails.env == 'development'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

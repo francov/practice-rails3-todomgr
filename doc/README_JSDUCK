@@ -22,5 +22,8 @@ $> jsduck vendor/assets/javascripts/extjs4/src app/assets/javascripts \
 		--title="practice-rails3-todomgr" \
 		--output doc/javascript-app
 
+NOTE: In lib/tasks there is a rake task to run the first command over:
+        $> rake jsduck:run
+
 
 The output will be located in the doc/javascript-app folder.
