@@ -22,6 +22,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jsduck'
 
 group :test do
   gem 'cucumber-rails', :require => false

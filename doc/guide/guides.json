@@ -1,0 +1,19 @@
+[
+	{
+		"title": "Todos Manager Application Guides",
+		"items": [
+			{
+				"name": "getting_started",
+				"url": "guides/getting_started",
+				"title": "Getting Started with Todos Manager Application",
+				"description": "This introduction explains how you can get started."
+			},
+			{
+				"name": "tecnology_stack",
+				"url": "guides/tecnology_stack",
+				"title": "The tecnology stack",
+				"description": "Describe all framework used for the creation of the application"
+			}
+		]
+	}
+]
