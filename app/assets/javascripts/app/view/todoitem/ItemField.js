@@ -38,7 +38,8 @@ Ext.define('TM.view.todoitem.ItemField' ,{
                 buttons: [
                     {
                         text: 'Add',
-                        action: 'add'
+                        action: 'add',
+                        formBind: true
                     }
                 ]
             }

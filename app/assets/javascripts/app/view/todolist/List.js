@@ -25,7 +25,12 @@ Ext.define('TM.view.todolist.List' ,{
     initComponent: function() {
 
         this.columns = [
-            {header: 'Title',  dataIndex: 'title',  flex: 1}
+            {
+                header: 'Title',
+                dataIndex: 'title',
+                flex: 1,
+                allowBlank: false
+            }
         ];
 
         this.callParent(arguments);

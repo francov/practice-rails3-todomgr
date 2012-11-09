@@ -74,6 +74,8 @@ Ext.define('TM.controller.TodoLists', {
      * @param {Ext.button.Button} button
      */
     updateTodoList: function(button) {
+        var me = this;
+
         var win = button.up('window'),
             form = win.down('form'),
             record = form.getRecord(),
@@ -81,7 +83,11 @@ Ext.define('TM.controller.TodoLists', {
         
         record.set(values);
         win.close();
-        this.getTodoListsStore().sync();
+        this.getTodoListsStore().sync({
+            failure: function(){
+                me.getTodoListsStore().reload();
+            }
+        });
     },
 
     /**
