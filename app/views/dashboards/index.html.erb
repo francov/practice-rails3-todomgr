@@ -4,7 +4,7 @@
 Ext.onReady(function() {
     function log2server(message) {
         Ext.Ajax.request({
-            url: '/log_client_error',
+            url: '/log_client_errors',
             method: 'POST',
             params: { error_message: message }
         });

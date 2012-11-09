@@ -1,5 +1,7 @@
 PracticeRails3Todomgr::Application.routes.draw do
 
+  post "log_client_errors" => 'log_client_errors#index'
+
   get "dashboards/index"
 
   resources :todo_lists, except: [:new, :edit], shallow: true do
@@ -7,6 +9,7 @@ PracticeRails3Todomgr::Application.routes.draw do
   end
 
   match 'dashboard' => 'dashboards#index', :as => :dashboard
+
   root :to => 'dashboards#index'
 
   # This redirect is a work around for the use of Extjs4 with Rails assets pipeline:
