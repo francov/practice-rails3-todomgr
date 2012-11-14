@@ -43,8 +43,13 @@ Ext.define('TM.controller.TodoItems', {
      * @param {Ext.Editor} editor
      * @param {Event} e
      */
-    editTodoItem: function(editor, e) {
-        this.getTodoItemsStore().sync();
+    editTodoItem: function(editor, target) {
+        var me = this;
+        this.getTodoItemsStore().sync({
+            failure: function(){
+                me.getTodoItemsStore().reload();
+            }
+        });
     }
 
 });
