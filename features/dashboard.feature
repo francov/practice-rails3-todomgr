@@ -19,3 +19,11 @@ Feature: Dashboard page
 		When I double click on the row "Shopping list"
 		Then I should see a form dialog titled "Edit TodoList"
 		And the dialog should contains a "Title" field prefilled with "Shopping list"
+
+	Scenario: Show todo items for a given todo list
+		Given the following todo items:
+			| description	| status		| list			|
+			| Potatoes		| uncompleted	| Shopping list	|
+			| Chips			| uncompleted	| Shopping list	|
+		When I click on the row "Shopping list"
+		Then In the right panel I should see "2" todo items

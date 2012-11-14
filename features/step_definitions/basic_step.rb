@@ -1,15 +1,56 @@
-Given /The Action is ([A-z]*)/ do |action|
-   @action = action
+#
+# Common steps
+#
+Given /^the following todo lists:$/ do |todolists|
+  	TodoList.create!(todolists.hashes)
 end
 
-Given /^The user is "(.*?)"$/ do |user|
-  @user = user # express the regexp above with the code you wish you had
+Given /^the following todo items:$/ do |table|
+	table.hashes.each do |row|
+		TodoItem.create!({	:description => row['description'],
+							:status => row['status'],
+							:todo_list_id => TodoList.find_by_title(row['list']).id
+						})
+	end
 end
- 
-When /The Subject is ([A-z]*)/ do |subject|
-  @subject = subject
+
+When /^I enter the following value in the "(.*?)" form field$/ do |field, value|
+	(value == "empty") ? fill_in(field, :with => '') : fill_in(field, :with => value)
 end
- 
-Then /The Greeting message should be (.*)/ do |greeting|
-  assert(greeting == "\"#{@action} #{@subject}! #{@user}\"")
+
+When /^I click the "(.*?)" button$/ do |label|
+	button = page.find(:xpath,"//button//*[contains(text(),'#{label}')]/..")
+	click_button(button.text)
+end
+
+Then /^The "(.*?)" panel should contains "([0-9]*?)" rows$/ do |panel_title, num_items|
+  	case panel_title
+	when "Todos"
+		assert(page.all(:xpath, "//div[contains(@id, 'todoitemlist')]//table//tbody//tr[contains(@class, 'x-grid-row')]").length == num_items.to_i)
+	when "All lists"
+		pending
+	else
+		pending
+	end
+end
+
+When /^I double click on the row "(.*?)"$/ do |locator|
+	visit '/'
+  	element = page.find(:xpath,"//td//div[contains(text(),'#{locator}')]")
+  	page.driver.browser.mouse.double_click(element.native)
+end
+
+When /^I click on the row "(.*?)"$/ do |locator|
+	visit('/')
+	page.find(:xpath,"//td//div[contains(text(),'#{locator}')]").click
+end
+
+Then /^I should see a message box titled "(.*?)"$/ do |title|
+	box = page.find(:xpath, "//div[contains(@class, 'x-window x-message-box')]//span[contains(text(), '#{title}')]")
+	assert(box.visible?)
+end
+
+Then /^The message box should contains text "(.*?)"$/ do |msg|
+	# sleep(1)
+	assert(page.has_xpath?("//div[contains(@class, 'x-window x-message-box')]//div[contains(text(), \"#{msg}\")]"))		
 end

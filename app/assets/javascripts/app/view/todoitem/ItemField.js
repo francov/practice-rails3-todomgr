@@ -26,6 +26,7 @@ Ext.define('TM.view.todoitem.ItemField' ,{
                     },{
                         xtype: 'textfield',
                         name : 'description',
+                        fieldLabel: 'Description',
                         emptyText: 'What do you have to do here?',
                         width: 450,
                         height: 35

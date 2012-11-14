@@ -1,14 +1,8 @@
 # 
 # Scenario: Show all todo lists
 # 
-Given /^the following todo lists:$/ do |todolists|
-	@lists = todolists.hashes
-  	TodoList.create!(todolists.hashes)
-end
-
 When /^I visit the dashboard page$/ do
   	visit '/'
-  	# sleep(1)
 end
 
 Then /^I should see a panel on the left named "(.*?)"$/ do |panelname|
@@ -35,24 +29,12 @@ Then /^I should see a panel on bottom named "(.*?)"$/ do |panelname|
 end
 
 Then /^that panel should have an empty grid$/ do
-  	assert(page.all(:xpath, "//div[contains(@id, 'todoitemlist')]//table//tbody//tr//td").length == 0)
+  	assert(page.all(:xpath, "//div[contains(@id, 'todoitemlist')]//table//tbody//tr[contains(@class, 'x-grid-row')]").length == 0)
 end
 
 #
 # Scenario: Edit a todo list
 # 
-Given /^the following todo list:$/ do |todolists|
-	@lists = todolists.hashes
-  	TodoList.create!(todolists.hashes)
-end
-
-When /^I double click on the row "(.*?)"$/ do |locator|
-	visit '/'
-  	element = page.find(:xpath,"//td//div[contains(text(),'#{locator}')]")
-  	page.driver.browser.mouse.double_click(element.native)
-  	# sleep(1)
-end
-
 Then /^I should see a form dialog titled "(.*?)"$/ do |dialog_name|
 	assert(page.has_xpath?("//span[contains(text(),'#{dialog_name}') and contains(@id, 'todolistedit')]") )
 end
@@ -60,4 +42,12 @@ end
 Then /^the dialog should contains a "(.*?)" field prefilled with "(.*?)"$/ do |label, value|
 	input_el = page.find_field(label)
 	assert(input_el.value == value)
+end
+
+#
+# Scenario: Show todo items for a given todo listGiven
+# 
+Then /^In the right panel I should see "([0-9]*?)" todo items$/ do |num|
+	sleep(1)
+  	assert(page.all(:xpath, "//div[contains(@id, 'todoitemlist')]//table//tbody//tr[contains(@class, 'x-grid-row')]").length == num.to_i)
 end

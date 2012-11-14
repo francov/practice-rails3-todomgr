@@ -69,7 +69,7 @@ Ext.define('TM.util.Exception', {
                 if (typeof(err) === "object") {
                     for (var key in err) {
                         if (err.hasOwnProperty(key)) {
-                            displayMessage += "<b>" + key + ":</b> " + err[key] + "<br/>";
+                            displayMessage += key + " " + err[key] + "<br/>";
                         }
                     }
                 } else {
