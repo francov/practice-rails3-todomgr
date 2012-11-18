@@ -6,8 +6,8 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-gem "minitest", "~> 4.1.0"
-gem 'turn', '~> 0.9.6'
+gem 'minitest'
+gem 'turn'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,6 +23,12 @@ end
 
 gem 'jquery-rails'
 gem 'jsduck'
+gem 'sunspot_rails'
+gem 'progress_bar'
+
+group :development do
+	gem 'sunspot_solr'
+end
 
 group :test do
   gem 'cucumber-rails', :require => false

@@ -100,4 +100,20 @@ class TodoItemsController < ApplicationController
       }}
     end
   end
+
+  # GET /todo_lists/search.json
+  def search
+    @items = TodoItem.search do |q|
+      q.text_fields { with(:description).starting_with(params[:query])}
+    end
+    puts "DEBUG: #{@items.results}"
+    respond_to do |format|
+      format.html
+      format.json {render json: {
+        success: true,
+        data: @items.results.to_a,
+        message: "All Todo items"
+      }}
+    end
+  end
 end

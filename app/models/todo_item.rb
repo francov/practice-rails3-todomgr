@@ -7,5 +7,11 @@ class TodoItem < ActiveRecord::Base
   validates :description, length: { maximum: 150, message: "must be up to %{count} chars"}
   validates :status, inclusion: {in: %w{uncompleted completed}, message: "is not a valid status"}
   validates :todo_list_id, presence: true
+
+  searchable do
+  	text 	:description
+  	integer :todo_list_id
+  	time    :created_at
+  end
   
 end

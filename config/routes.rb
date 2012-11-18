@@ -4,6 +4,12 @@ PracticeRails3Todomgr::Application.routes.draw do
 
   get "dashboards/index"
 
+  resources :todo_items do
+    collection do
+      get :search
+    end
+  end
+
   resources :todo_lists, except: [:new, :edit], shallow: true do
     resources :todo_items, except: [:new, :edit]
   end
