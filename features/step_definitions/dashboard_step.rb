@@ -47,7 +47,7 @@ end
 #
 # Scenario: Show todo items for a given todo listGiven
 # 
-Then /^In the right panel I should see "([0-9]*?)" todo items$/ do |num|
+Then /^In the right panel I should see "([0-9]+)" todo items$/ do |num|
 	sleep(1)
   	assert(page.all(:xpath, "//div[contains(@id, 'todoitemlist')]//table//tbody//tr[contains(@class, 'x-grid-row')]").length == num.to_i)
 end

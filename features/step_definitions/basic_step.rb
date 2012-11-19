@@ -1,11 +1,11 @@
 #
 # Common steps
 #
-Given /^the following todo lists:$/ do |todolists|
+Given /^the following todo list[s]?:$/ do |todolists|
   	TodoList.create!(todolists.hashes)
 end
 
-Given /^the following todo items:$/ do |table|
+Given /^the following todo item[s]?:$/ do |table|
 	table.hashes.each do |row|
 		TodoItem.create!({	:description => row['description'],
 							:status => row['status'],
@@ -23,7 +23,7 @@ When /^I click the "(.*?)" button$/ do |label|
 	click_button(button.text)
 end
 
-Then /^The "(.*?)" panel should contains "([0-9]*?)" rows$/ do |panel_title, num_items|
+Then /^The "(.*?)" panel should contains "([0-9]+)" rows$/ do |panel_title, num_items|
   	case panel_title
 	when "Todos"
 		assert(page.all(:xpath, "//div[contains(@id, 'todoitemlist')]//table//tbody//tr[contains(@class, 'x-grid-row')]").length == num_items.to_i)
@@ -51,6 +51,5 @@ Then /^I should see a message box titled "(.*?)"$/ do |title|
 end
 
 Then /^The message box should contains text "(.*?)"$/ do |msg|
-	# sleep(1)
 	assert(page.has_xpath?("//div[contains(@class, 'x-window x-message-box')]//div[contains(text(), \"#{msg}\")]"))		
 end
