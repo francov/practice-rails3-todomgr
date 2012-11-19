@@ -22,3 +22,7 @@
 
 # Precompiled assets
 public/assets/**/*
+
+# SimpleCov
+/coverage/**/*
+
