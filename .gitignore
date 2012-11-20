@@ -21,8 +21,8 @@
 /solr/pids/**/*
 
 # Precompiled assets
-public/assets/**/*
+public/assets
 
 # SimpleCov
-/coverage/**/*
+/coverage
 
