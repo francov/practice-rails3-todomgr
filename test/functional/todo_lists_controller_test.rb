@@ -47,6 +47,22 @@ class TodoListsControllerTest < ActionController::TestCase
     assert_not_nil TodoList.find_by_title("My list")
   end
 
+  test "should not create list with empty title" do
+    title = ""
+    assert_difference('TodoList.count', 0) do
+        post :create, format: 'json', todo_list: {title: title}
+    end
+    assert_response :success
+
+    composed_response = JSON.parse(@response.body)
+
+    assert_equal composed_response.length, 3
+    assert !composed_response['success']
+    assert composed_response['data'].empty?
+    assert_equal composed_response['message']['title'][0], "can't be blank"
+    assert_nil TodoList.find_by_title(title)
+  end
+
 
   test "should update list" do
     put :update, format: 'json', id: @list.id, todo_list: {title: "Shopping list for tomorrow"}
@@ -57,6 +73,20 @@ class TodoListsControllerTest < ActionController::TestCase
     assert_equal composed_response.length, 3
     assert composed_response['success']
     assert composed_response['data'].empty?
+  end
+
+  test "should not update list with empty title" do
+    title = ""
+    put :update, format: 'json', id: @list.id, todo_list: {title: title}
+    assert_response :success
+
+    composed_response = JSON.parse(@response.body)
+
+    assert_equal composed_response.length, 3
+    assert !composed_response['success']
+    assert composed_response['data'].empty?
+    assert_equal composed_response['message']['title'][0], "can't be blank"
+    assert_equal TodoList.find(@list.id).title, "Shopping list for today"
   end
   
 

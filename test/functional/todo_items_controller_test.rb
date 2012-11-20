@@ -45,6 +45,21 @@ class TodoItemsControllerTest < ActionController::TestCase
     assert_not_nil TodoItem.find_by_description("Buy new shoes")
     assert_not_nil assigns(:item)
   end
+
+  test "should not create item with empty description" do
+    desc = ""
+    assert_difference('TodoList.find(@list.id).todo_items.size', 0) do
+      post :create, format: 'json', todo_list_id: @list.id, todo_item: {description: desc, status: "uncompleted"}
+    end
+    assert_response :success
+
+    composed_response = JSON.parse(@response.body)
+
+    assert !composed_response['success']
+    assert composed_response['data'].empty?
+    assert_equal composed_response['message']['description'][0], "can't be blank"
+    assert_nil TodoItem.find_by_description(desc)
+  end
   
   test "should update item" do
     put :update, format: 'json', id: @item.id, todo_item: {description: @item.description, status: "completed", todo_list_id: @list}
@@ -56,6 +71,17 @@ class TodoItemsControllerTest < ActionController::TestCase
     assert_equal composed_response.length, 3
     assert composed_response['success']
     assert composed_response['data'].empty?
+  end
+
+  test "should not update item with invalid status" do
+    put :update, format: 'json', id: @item.id, todo_item: {description: @item.description, status: "invalid", todo_list_id: @list}
+    assert_response :success
+
+    composed_response = JSON.parse(@response.body)
+
+    assert !composed_response['success']
+    assert composed_response['data'].empty?
+    assert_equal composed_response['message']['status'][0], "is not a valid status"
   end
 
   test "should destroy item" do
@@ -82,6 +108,20 @@ class TodoItemsControllerTest < ActionController::TestCase
     assert_equal composed_response.length, 3
     assert !composed_response['success']
     assert composed_response['data'].empty?
+  end
+
+  test "should search an item" do
+    TodoItem.reindex
+
+    text_to_search = "pot"
+    get :search, format: 'json', query: text_to_search
+    assert_response :success
+
+    composed_response = JSON.parse(@response.body)
+
+    assert_equal composed_response.length, 3
+    assert composed_response['success']
+    assert_equal composed_response['data'].length, 1
   end
 
 end
