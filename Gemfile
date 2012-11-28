@@ -26,8 +26,11 @@ gem 'jsduck'
 gem 'sunspot_rails'
 gem 'progress_bar'
 
+gem 'service_manager'
+
 group :development do
 	gem 'sunspot_solr'
+	gem 'rails-erd'
 end
 
 group :test do
