@@ -36,6 +36,8 @@ Ext.define('TM.util.Exception', {
                 response = options.response;
             }
 
+            var jsonResponse = "",
+                displayMessage = "";
             if(((typeof(message) === "undefined") || message === '') && response.status === 200) {
                 if(!Ext.isEmpty(response.responseText)) {
                     jsonResponse = Ext.util.JSON.decode(response.responseText);

@@ -25,8 +25,6 @@ Ext.application({
     launch: function() {
 
         // Observe event exception on every data proxy
-        // Sulla doc è dichiarato che usa il mixin Observable, ma in questo caso
-        // l'oggetto Server non aveva il metodo on().
         // http://docs.sencha.com/ext-js/4-1/#!/api/Ext.data.proxy.Server
         Ext.util.Observable.observe(Ext.data.proxy.Server);
         Ext.data.proxy.Server.on('exception', TM.util.Exception.StoreExceptionHandler);

@@ -1,5 +1,5 @@
 /**
- * This is a grid panel ({@link Ext.grid.Panel}).
+ * This is the sidebar ({@link Ext.grid.Panel}).
  */
 Ext.define('TM.view.todolist.List' ,{
     extend: 'Ext.grid.Panel',
